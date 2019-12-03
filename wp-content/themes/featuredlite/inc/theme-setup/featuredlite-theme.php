@@ -113,6 +113,8 @@ function featured_lite_tab_config($theme_data){
         'doc_link_text' => sprintf(esc_html__('Theme Documentation', 'featuredlite'), $theme_data->get( 'Name' )),
         'support_text' => sprintf(esc_html__('If you need any help you can contact to our support team, our team is always ready to help you.', 'featuredlite'), $theme_data->get( 'Name' )),
         'support_button' => sprintf( esc_html__('Create a support ticket', 'featuredlite'), $theme_data->get( 'Name' )),
+
+        'demo_title' => esc_html__( 'Step 5 - Import Demo Content', 'featuredlite' ),
         );
     return $config;
 }
@@ -256,6 +258,55 @@ Go to your dashboard. Create a new page and select “Home Page Template” from
 
                                 <a href="<?php echo $theme_config['support_link']; ?>" target="_blank" class="button button-secondary"><?php echo $theme_config['support_button']; ?></a>
                             </p>
+                        </div>
+
+                        <div class="theme_link theme-demo">
+                        <h3><?php echo esc_html($theme_config['demo_title']); ?></h3>
+                        <p class="about"><ol>
+                                <li><p><?php esc_html_e(' 
+                                Install recommended plugins','featuredlite')?> </p></li>
+                                <li><p><?php esc_html_e('Click this button and import desired demo.','featuredlite')?></p></li>
+                                </ol>
+                        </p>
+
+                        <p>
+                               <?php
+            // Sita Sites - Installed but Inactive.
+            // Sita Premium Sites - Inactive.
+            if ( file_exists( WP_PLUGIN_DIR . '/one-click-demo-import/one-click-demo-import.php' ) && is_plugin_inactive( 'one-click-demo-import/one-click-demo-import.php' )){
+
+              $class       = 'button zta-sites-inactive';
+              $button_text = __( 'Activate Importer Plugin', 'featuredlite' );
+              $data_slug   = 'one-click-demo-import';
+              $data_init   = '/one-click-demo-import/one-click-demo-import.php';
+
+              // Sita Sites - Not Installed.
+              // Sita Premium Sites - Inactive.
+            } elseif ( ! file_exists( WP_PLUGIN_DIR . '/one-click-demo-import/one-click-demo-import.php' ) ) {
+
+              $class       = 'button zta-sites-notinstalled';
+              $button_text = __( 'Install Importer Plugin', 'featuredlite' );
+              $data_slug   = 'one-click-demo-import';
+              $data_init   = '/one-click-demo-import/one-click-demo-import.php';
+
+            }
+            else {
+              $class       = 'active';
+              $button_text = __( 'See Library', 'featuredlite' );
+              $link        = admin_url( 'themes.php?page=pt-one-click-demo-import' );
+            }
+
+            printf(
+              '<a class="ztabtn %1$s" %2$s %3$s %4$s> %5$s </a>',
+              esc_attr( $class ),
+              isset( $link ) ? 'href="' . esc_url( $link ) . '"' : '',
+              isset( $data_slug ) ? 'data-slug="' . esc_attr( $data_slug ) . '"' : '',
+              isset( $data_init ) ? 'data-init="' . esc_attr( $data_init ) . '"' : '',
+              esc_html( $button_text )
+            );
+            ?>
+            </p>
+
                         </div>
                     </div>
                 </div>
@@ -475,3 +526,38 @@ function featured_lite_get_actions_required( ) {
 
     return $return;
 }
+
+// AJAX.
+add_action( 'wp_ajax_featuredlite-sites-plugin-activate','required_plugin_activate' );
+function required_plugin_activate() {
+
+      if ( ! current_user_can( 'install_plugins' ) || ! isset( $_POST['init'] ) || ! $_POST['init'] ) {
+        wp_send_json_error(
+          array(
+            'success' => false,
+            'message' => __( 'No plugin specified', 'featuredlite' ),
+          )
+        );
+      }
+
+      $plugin_init = ( isset( $_POST['init'] ) ) ? esc_attr( $_POST['init'] ) : '';
+
+      $activate = activate_plugin( $plugin_init, '', false, true );
+
+      if ( is_wp_error( $activate ) ) {
+        wp_send_json_error(
+          array(
+            'success' => false,
+            'message' => $activate->get_error_message(),
+          )
+        );
+      }
+
+      wp_send_json_success(
+        array(
+          'success' => true,
+          'message' => __( 'Plugin Successfully Activated', 'featuredlite' ),
+        )
+      );
+
+    }

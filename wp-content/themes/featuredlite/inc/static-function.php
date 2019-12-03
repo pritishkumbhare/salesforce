@@ -138,9 +138,12 @@ function featuredlite_social_links(){
 <ul>
 <?php if($f_link = get_theme_mod('f_link')) : ?><li><a target='_blank' href="<?php echo esc_url($f_link); ?>" ><i class='fab fa-facebook-f'></i></a></li><?php endif; ?>
 <?php if($t_link = get_theme_mod('t_link')) : ?><li><a target='_blank' href="<?php echo esc_url($t_link); ?>" ><i class='fab fa-twitter'></i></a></li><?php endif; ?>
-<?php if($g_link = get_theme_mod('g_link')) : ?><li><a target='_blank' href="<?php echo esc_url($g_link); ?>" ><i class='fab fa-google-plus-g'></i></a></li><?php endif; ?>
 <?php if($l_link = get_theme_mod('l_link')) : ?><li><a target='_blank' href="<?php echo esc_url($l_link); ?>" ><i class='fab fa-linkedin-in'></i></a></li><?php endif; ?>
 <?php if($p_link = get_theme_mod('p_link')) : ?><li><a target='_blank' href="<?php echo esc_url($p_link); ?>" ><i class='fab fa-pinterest-p'></i></a></li><?php endif; ?>
+
+<?php if($y_link = get_theme_mod('y_link')) : ?><li><a target='_blank' href="<?php echo esc_url($y_link); ?>" ><i class="fab fa-youtube"></i></a></li><?php endif; ?>
+<?php if($i_link = get_theme_mod('i_link')) : ?><li><a target='_blank' href="<?php echo esc_url($i_link); ?>" ><i class="fab fa-instagram"></i></a></li><?php endif; ?>
+<?php if($s_link = get_theme_mod('s_link')) : ?><li><a target='_blank' href="<?php echo esc_url($s_link); ?>" ><i class="fab fa-skype"></i></a></li><?php endif; ?>
     </ul>
 <?php
   }

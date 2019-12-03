@@ -3,7 +3,7 @@ Contributors: ThemeHunk
 Tags: right-sidebar, custom-menu, translation-ready
 Requires at least: 4.0
 Tested up to: 5.2.2
-Stable tag: 1.2.9
+Stable tag: 1.3.0
 License: GPLv3 or later
 License URL: https://www.gnu.org/licenses/gpl-3.0.en.html
 
@@ -26,6 +26,11 @@ Yes, all our theme works on multisite.
 
 == Changelog ==
 = Theme Name Featured Lite =
+= 1.3.0 =
+* Spelling Correction.
+* GooglePlus icon removed.
+* Demo Import Added
+* Translation file added
 
 = 1.2.9 =
 * Bug fixed
@@ -126,9 +131,11 @@ Version: 1.0.0 =
 
 
 == Upgrade Notice ==
-
-= 1.2.9 =
-* Bug fixed
+= 1.3.0 =
+* Spelling Correction.
+* GooglePlus icon removed.
+* Demo Import Added
+* translation file added
 
 == Resources ==
 

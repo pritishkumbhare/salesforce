@@ -119,4 +119,16 @@ if (is_singular() && get_option('thread_comments')){
   }
 }
 add_action( 'wp_enqueue_scripts', 'featuredlite_scripts' );
-?>
+
+add_action( 'admin_enqueue_scripts', 'featuredlite_admin_script' );
+function featuredlite_admin_script(){
+wp_enqueue_script( 'featuredlite-admin-settings', get_template_directory_uri()  . '/js/oneclick-demo-import.js', array( 'jquery', 'wp-util', 'updates' ), '');
+
+      $localize = array(
+        'ajaxUrl'             => admin_url( 'admin-ajax.php' ),
+        'btnActivating'       => __( 'Activating Importer Plugin ', 'featuredlite' ) . '&hellip;',
+        'featuredliteSitesLink'      => admin_url( 'themes.php?page=pt-one-click-demo-import' ),
+        'featuredliteSitesLinkTitle' => __( 'See Library', 'featuredlite' ),
+      );
+      wp_localize_script( 'featuredlite-admin-settings', 'featuredlite', apply_filters( 'featuredlite_theme_js_localize', $localize ) );
+}

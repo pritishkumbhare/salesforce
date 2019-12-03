@@ -68,7 +68,7 @@ trait Elements
      */
     public function register_extensions()
     {
-        $active_elements = $this->get_settings();
+        $active_elements = (array) $this->get_settings();
 
         if (empty($active_elements)) {
             return;
@@ -95,6 +95,10 @@ trait Elements
             $page_settings_model = $page_settings_manager->get_model(get_the_ID());
             $global_settings = get_option('eael_global_settings');
             $html = '';
+
+            if($this->get_settings('eael-reading-progress') == false) {
+                return;
+            }
 
             if ($page_settings_model->get_settings('eael_ext_reading_progress') == 'yes' || isset($global_settings['reading_progress']['enabled'])) {
                 add_filter('eael/section/after_render', function ($extensions) {

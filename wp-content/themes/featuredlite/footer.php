@@ -11,20 +11,24 @@
 <div class="container">
 	<ul>
 		<li class="copyright">
-			<?php if( get_theme_mod('copyright_textbox')!=''){
-				echo esc_html(get_theme_mod( 'copyright_textbox'));
-			} else { ?>
-			<span class="text-footer">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a>
-				<a href="<?php echo esc_url( __( 'https://themehunk.com/', 'featuredlite' ) ); ?>"><?php printf( __('Powered by %s', 'featuredlite' ), 'ThemeHunk' ); ?></a>
-			</span>
-			<?php } ?>
+			<?php 
+			$allowed_html = array(
+                                  'a' => array(
+                                  'href' => array(),
+                                  'title' => array(),
+                                  'target' => array()
+                              ),
+                              'br' => array(),
+                              'em' => array(),
+                              'strong' => array(),
+                          );
+                $url = "https://themehunk.com";
+              echo  sprintf( 
+              	wp_kses( __( 'Featuredlite developed by <a href="%s" target="_blank">ThemeHunk</a>', 'featuredlite' ), $allowed_html), esc_url( $url ) );
+			?>
 		</li>
 		<li class="social-icon">
-			<?php
-			if(get_theme_mod('footer_on_social','social_on')=='social_on'):  ?>
 			<?php featuredlite_social_links(); ?>
-			<?php endif; ?>
 		</li>
 	</ul>
 </div>

@@ -115,6 +115,9 @@ class Bootstrap
         add_action('wp_ajax_load_more', array($this, 'eael_load_more_ajax'));
         add_action('wp_ajax_nopriv_load_more', array($this, 'eael_load_more_ajax'));
 
+        add_action('wp_ajax_facebook_feed_load_more', [$this, 'facebook_feed_render_items']);
+        add_action('wp_ajax_nopriv_facebook_feed_load_more', [$this, 'facebook_feed_render_items']);
+
         // Elements
         add_action('elementor/elements/categories_registered', array($this, 'register_widget_categories'));
         add_action('elementor/widgets/widgets_registered', array($this, 'register_elements'));
@@ -136,7 +139,9 @@ class Bootstrap
             // Core
             add_filter('plugin_action_links_' . EAEL_PLUGIN_BASENAME, array($this, 'insert_plugin_links'));
             add_filter('plugin_row_meta', array($this, 'insert_plugin_row_meta'), 10, 2);
-            add_action('admin_init', array($this, 'redirect_on_activation'));
+
+            // removed activation redirection temporarily
+            // add_action('admin_init', array($this, 'redirect_on_activation'));
 
             if (!did_action('elementor/loaded')) {
                 add_action('admin_notices', array($this, 'elementor_not_loaded'));
